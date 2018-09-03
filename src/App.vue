@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Menu id="menu" v-bind:items="devices" v-on:sel-item="selItem($event)"/>
-    <Map v-bind:cx="28 * selDevicePosition.PosX" v-bind:cy="15 * selDevicePosition.PosY"/> 
+    <Map v-bind:cx="selDevicePosition.PosX" v-bind:cy="selDevicePosition.PosY"/> 
   </div>
 </template>
 
