@@ -1,7 +1,7 @@
 <template>
     <easel-canvas width="700" height="400">
       <easel-bitmap
-        image="../img/map.c5c77cd7.png"
+        image="/img/map.png"
         :scale="0.15"
       >
       </easel-bitmap>
