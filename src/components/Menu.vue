@@ -2,8 +2,8 @@
   <div class="menu">
     <div class="menuHeader">Device list</div>
     <div class="item"
-      v-bind:class="{ selectedItem: item.ID === selId }"
-      v-for="(item, i) in items"
+      v-bind:class="{ selectedItem: item.ID === selectedDeviceID }"
+      v-for="(item, i) in deviceList"
       v-bind:key="item.ID"
       v-bind:item="item"
       @click="clickItem(item)"
@@ -16,16 +16,25 @@
 <script>
 export default {
   name: 'Menu',
-  props: ['items'],
   methods: {
     clickItem: function(item) {
-      this.selId = item.ID      
-      this.$emit('sel-item', item.ID);
+      this.$store.dispatch({
+        type: 'mainStore/selectDevice',
+        device: item
+      });
     }
   },
-  data: function() {
-    return {
-      selId: null
+  computed: {
+    deviceList() {
+      return this.$store.state.mainStore.deviceList;
+    },
+    selectedDeviceID() {
+      var d = this.$store.state.mainStore.selectedDevice;
+      if (d == undefined) {
+        return 0;
+      } else {
+        return d.ID;
+      }
     }
   }
 }

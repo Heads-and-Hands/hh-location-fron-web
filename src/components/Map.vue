@@ -7,8 +7,8 @@
       </easel-bitmap>
       <easel-shape
         :alpha="0.5"
-        :x=cx
-        :y=cy
+        :x="selPosition.x"
+        :y="selPosition.y"
         form="circle"
         fill="#ffaaaa"
         stroke="red"
@@ -17,8 +17,8 @@
       >    
       </easel-shape>
       <easel-shape
-        :x=cx
-        :y=cy
+        :x="selPosition.x"
+        :y="selPosition.y"
         form="circle"
         fill="red"
         :dimensions="4"
@@ -31,7 +31,16 @@
 <script>
 export default {
   name: 'Map',
-  props: ['cx', 'cy', 'mapScale']
+  props: ['mapScale'],
+  computed: {
+    selPosition() {
+      var tmpPos = this.$store.state.mainStore.selectedPosition;
+      return {
+        x: tmpPos.x * this.mapScale,
+        y: tmpPos.y * this.mapScale,
+      }
+    }
+  }
 }
 </script>
 
