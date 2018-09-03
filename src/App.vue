@@ -36,6 +36,10 @@ export default {
       .then(
         response => {
           this.positions = response.data; 
+          if (this.selDevice != undefined) {
+            var selId = this.selDevice.ID;
+            this.selItem(selId);
+          }
         }
       );
     }
@@ -50,7 +54,7 @@ export default {
     );
 
     this.updatePositions();
-    this.timer = setInterval(this.updatePositions, 5000)    
+    this.timer = setInterval(this.updatePositions, 3000)    
   },
   beforeDestroy() {
     clearInterval(this.timer)
