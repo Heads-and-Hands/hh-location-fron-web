@@ -6,7 +6,7 @@
       >
       </easel-bitmap>
       <easel-shape
-        :alpha="cx === undefined ? 0.5 : 0"
+        :alpha="0.5"
         :x=cx
         :y=cy
         form="circle"

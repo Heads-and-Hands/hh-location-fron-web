@@ -21,7 +21,7 @@ export default {
       devices: [],
       positions: [],
       selDevice: null,
-      selDevicePosition: {cx:undefined, cy:undefined},
+      selDevicePosition: {cx:0, cy:0},
       timer: ''
     }
   },
