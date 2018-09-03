@@ -27,8 +27,8 @@ export default {
   },
   methods: {
     selItem: function(selId) {
-      this.selDevice = this.devices.find((item, index, ar) => {return item.ID === selId})
-      this.selDevicePosition = this.positions.find((item, index, ar) => {return item.DeviceID === selId})
+      this.selDevice = this.devices.find((item) => {return item.ID === selId})
+      this.selDevicePosition = this.positions.find((item) => {return item.DeviceID === selId})
     },
     updatePositions: function() {
       axios

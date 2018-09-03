@@ -1,12 +1,12 @@
 <template>
   <div class="menu">
     <div 
-    	v-for="(item, i) in items"
-    	v-bind:key="item.ID"
-    	v-bind:item="item"
-    	@click="$emit('sel-item', item.ID)"
+      v-for="(item, i) in items"
+      v-bind:key="item.ID"
+      v-bind:item="item"
+      @click="$emit('sel-item', item.ID)"
     >
-    	{{ i + 1 + ": " + item.Name }}
+      {{ i + 1 + ": " + item.Name }}
     </div>
   </div>
 </template>
