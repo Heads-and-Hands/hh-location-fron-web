@@ -1,8 +1,8 @@
 <template>
-    <easel-canvas width="700" height="450">
+    <easel-canvas width="1100" height="1450">
       <easel-bitmap
         image="/img/map.png"
-        :scale="1.0"
+        :scale=mapScale
       >
       </easel-bitmap>
       <easel-shape
@@ -12,7 +12,7 @@
         form="circle"
         fill="#ffaaaa"
         stroke="red"
-        :dimensions="30"
+        :dimensions="100"
         :align="['center','center']"
       >    
       </easel-shape>
@@ -31,7 +31,7 @@
 <script>
 export default {
   name: 'Map',
-  props: ['cx', 'cy']
+  props: ['cx', 'cy', 'mapScale']
 }
 </script>
 

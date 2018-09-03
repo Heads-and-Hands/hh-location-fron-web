@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+    <div class="header">Heads <span class="yellow">and</span> Hands Device Location</div>
     <Menu id="menu" v-bind:items="devices" v-on:sel-item="selItem($event)"/>
-    <Map v-bind:cx="selDevicePosition.PosX" v-bind:cy="selDevicePosition.PosY"/> 
+    <Map v-bind:cx="mapScale * selDevicePosition.PosX" v-bind:cy="mapScale * selDevicePosition.PosY" v-bind:mapScale="mapScale"/> 
   </div>
 </template>
 
@@ -22,7 +23,8 @@ export default {
       positions: [],
       selDevice: null,
       selDevicePosition: {cx:0, cy:0},
-      timer: ''
+      timer: '',
+      mapScale: 1.5
     }
   },
   methods: {
@@ -70,5 +72,15 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 20px;
+}
+
+.header {
+  font-size: 3em;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.header > .yellow {
+  color: rgb(243, 181, 9);
 }
 </style>
