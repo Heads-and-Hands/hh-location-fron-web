@@ -2,7 +2,7 @@
     <easel-canvas width="700" height="450">
       <easel-bitmap
         image="/img/map.png"
-        :scale="0.15"
+        :scale="1.0"
       >
       </easel-bitmap>
       <easel-shape
