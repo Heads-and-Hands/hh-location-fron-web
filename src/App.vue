@@ -1,19 +1,62 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Menu id="menu" v-bind:items="devices" v-on:sel-item="selItem($event)"/>
+    <Map v-bind:cx="28 * selDevicePosition.PosX" v-bind:cy="15 * selDevicePosition.PosY"/> 
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+const axios = require('axios')
+import Map from './components/Map.vue'
+import Menu from './components/Menu.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Map,
+    Menu
+  },
+  data: function() {
+    return {
+      devices: [],
+      positions: [],
+      selDevice: null,
+      selDevicePosition: {cx:0, cy:0},
+      timer: ''
+    }
+  },
+  methods: {
+    selItem: function(selId) {
+      this.selDevice = this.devices.find((item, index, ar) => {return item.ID === selId})
+      this.selDevicePosition = this.positions.find((item, index, ar) => {return item.DeviceID === selId})
+    },
+    updatePositions: function() {
+      axios
+      .get('http://d.handh.ru:8887/position?token=fsdf')
+      .then(
+        response => {
+          this.positions = response.data; 
+        }
+      );
+    }
+  },
+  mounted() {
+    axios
+    .get('http://d.handh.ru:8887/device?token=fsdf')
+    .then(
+      response => {
+        this.devices = response.data; 
+      }
+    );
+
+    this.updatePositions();
+    this.timer = setInterval(this.updatePositions, 5000)    
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
   }
 }
+
 </script>
 
 <style>
@@ -21,8 +64,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 </style>
