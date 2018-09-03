@@ -1,12 +1,12 @@
 <template>
-    <easel-canvas width="700" height="400">
+    <easel-canvas width="700" height="450">
       <easel-bitmap
         image="/img/map.png"
         :scale="0.15"
       >
       </easel-bitmap>
       <easel-shape
-        :alpha="0.5"
+        :alpha="cx === undefined ? 0.5 : 0"
         :x=cx
         :y=cy
         form="circle"
