@@ -2,7 +2,7 @@
   <div id="app">
     <div class="header">Heads <span class="yellow">and</span> Hands Device Location</div>
     <Menu id="menu"/>
-    <Map v-bind:mapScale="1.5"/> 
+    <Map v-bind:mapScale="1"/> 
   </div>
 </template>
 
