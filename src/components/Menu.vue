@@ -2,13 +2,13 @@
   <div class="menu">
     <div class="menuHeader">Device list</div>
     <div class="item"
-      v-bind:class="{ selectedItem: item.ID === selectedDeviceID }"
+      v-bind:class="{ selectedItem: item.id === selectedDeviceID }"
       v-for="(item, i) in deviceList"
-      v-bind:key="item.ID"
+      v-bind:key="item.id"
       v-bind:item="item"
       @click="clickItem(item)"
     >
-      {{ i + 1 + ": " + item.Name }}
+      {{ i + 1 + ": " + item.name }}
     </div>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
       if (d == undefined) {
         return 0;
       } else {
-        return d.ID;
+        return d.id;
       }
     }
   }

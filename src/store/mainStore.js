@@ -21,13 +21,14 @@ export default {
         updatePositions (state, newPositions) {
             state.positions = newPositions;
         },
-        showPosition (state, deviceID) {
-            var tmpPos = state.positions.find((item) => {return item.DeviceID === deviceID}) 
+        showPosition (state, deviceId) {
+            var tmpPos = state.positions.find((item) => {return item.deviceId === deviceId}) 
+            
             if (tmpPos == undefined) {
                 state.selectedPosition = {x:0, y:0};
             } else {
-                state.selectedPosition.x = tmpPos.PosX;
-                state.selectedPosition.y = tmpPos.PosY;
+                state.selectedPosition.x = tmpPos.posX;
+                state.selectedPosition.y = tmpPos.posY;
             }
         }
     },
@@ -56,7 +57,7 @@ export default {
         },
         selectDevice({ commit }, device) {
             commit('selectDevice', device.device);
-            commit('showPosition', device.device.ID);            
+            commit('showPosition', device.device.id);            
         }
     }
 }
