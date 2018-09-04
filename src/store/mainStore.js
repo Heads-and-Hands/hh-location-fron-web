@@ -1,5 +1,4 @@
-/* eslint-disable */
-const axios = require('axios')
+import Http from '@/services/Http'
 
 export default {
     namespaced: true,
@@ -34,8 +33,8 @@ export default {
     },
     actions: {
         loadDevices({ commit }) {
-            axios
-            .get('http://d.handh.ru:8887/device?token=fsdf')
+            Http
+            .get('device')
             .then(
               response => {
                 commit('addDevices', response.data);
@@ -44,8 +43,8 @@ export default {
         },
         loadPositions({ commit }) {
             var startRequest = function() {
-                axios
-                .get('http://d.handh.ru:8887/position?token=fsdf')
+                Http
+                .get('position')
                 .then(
                   response => {
                       commit('updatePositions', response.data);
