@@ -10,8 +10,8 @@
         >
           <easel-shape
             :alpha="0.5"
-            :x="selPosition.x"
-            :y="selPosition.y"
+            :x="dataPosition.x"
+            :y="dataPosition.y"
             form="circle"
             fill="#ffaaaa"
             stroke="red"
@@ -20,8 +20,8 @@
           >    
           </easel-shape>
           <easel-shape
-            :x="selPosition.x"
-            :y="selPosition.y"
+            :x="dataPosition.x"
+            :y="dataPosition.y"
             form="circle"
             fill="red"
             :dimensions="4"
@@ -33,9 +33,24 @@
 </template>
 
 <script>
+
+import {TweenMax, Power4} from 'gsap'
+
 export default {
   name: 'Map',
   props: ['mapScale'],
+  data: function() {
+    return {
+      dataPosition: {
+        x: 0,
+        y: 0
+      },
+      newPosition: {
+        x: 0,
+        y: 0
+      },
+    }
+  },
   computed: {
     havePosition() {
       var tmpPos = this.$store.state.mainStore.selectedPosition;
@@ -43,10 +58,13 @@ export default {
     },
     selPosition() {
       var tmpPos = this.$store.state.mainStore.selectedPosition;
-      return {
-        x: tmpPos.x * this.mapScale,
-        y: tmpPos.y * this.mapScale,
-      }
+      this.newPosition = {x: tmpPos.x * this.mapScale, y: tmpPos.y * this.mapScale};
+      return this.newPosition;
+    }
+  },
+  watch: {
+    selPosition: function(newVal) {
+      TweenLite.to(this.dataPosition, 1, this.newPosition);
     }
   }
 }
