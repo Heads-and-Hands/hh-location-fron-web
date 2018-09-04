@@ -17,8 +17,7 @@ export default {
     Menu
   },
   mounted() {
-    this.$store.dispatch('mainStore/loadDevices');
-    this.$store.dispatch('mainStore/loadPositions');
+    this.$store.dispatch('mainStore/updateData');
   }
 }
 

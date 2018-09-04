@@ -14,7 +14,7 @@
             :y="selPosition.y"
             form="circle"
             fill="#ffaaaa"
-            stroke="green"
+            stroke="red"
             :dimensions="100"
             :align="['center','center']"
           >    

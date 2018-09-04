@@ -4,7 +4,7 @@ export default {
     namespaced: true,
     state: {
         deviceList: [],
-        selectedDevice: null,
+        selectedDevice: undefined,
         positions: [],
         selectedPosition: {
             x: 0,
@@ -21,9 +21,13 @@ export default {
         updatePositions (state, newPositions) {
             state.positions = newPositions;
         },
-        showPosition (state, deviceId) {
-            var tmpPos = state.positions.find((item) => {return item.deviceId === deviceId}) 
-            
+        showPosition (state) {
+            var selDevice = state.selectedDevice;
+            if (selDevice != undefined) {
+                var deviceId = selDevice.id;
+                var tmpPos = state.positions.find((item) => {return item.deviceId === deviceId}) 
+            }
+
             if (tmpPos == undefined) {
                 state.selectedPosition = {x:0, y:0};
             } else {
@@ -33,17 +37,8 @@ export default {
         }
     },
     actions: {
-        loadDevices({ commit }) {
-            Http
-            .get('device')
-            .then(
-              response => {
-                commit('addDevices', response.data);
-              }
-            );
-        },
-        loadPositions({ commit }) {
-            var startRequest = function() {
+        updateData({ commit }) {
+            var loadPosition = function() {
                 Http
                 .get('position')
                 .then(
@@ -51,13 +46,26 @@ export default {
                       commit('updatePositions', response.data);
                   }
                 );
+            }            
+            var loadDevices = function() {            
+                Http
+                .get('device')
+                .then(
+                response => {
+                    commit('addDevices', response.data);
+                }
+                );
             }
-            startRequest();
-            this.timer = setInterval(startRequest, 3000);
+            var loadData = function() {
+                loadDevices();
+                loadPosition();
+                commit('showPosition')
+            }
+            this.timer = setInterval(loadData, 3000);
         },
         selectDevice({ commit }, device) {
             commit('selectDevice', device.device);
-            commit('showPosition', device.device.id);            
+            commit('showPosition');            
         }
     }
 }
