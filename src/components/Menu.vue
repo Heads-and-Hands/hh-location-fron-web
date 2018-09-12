@@ -1,7 +1,8 @@
 <template>
   <div class="menu">
     <div class="menuHeader">Device list</div>
-    
+    <span>Filter:</span>
+    <input type="text" class="filterText" v-model="search"/>
     <transition-group name="list" tag="p">
       <div class="list-item"
         v-bind:class="{ selectedItem: item.id === selectedDeviceID }"
@@ -19,6 +20,11 @@
 <script>
 export default {
   name: 'Menu',
+  data: function(){
+    return {
+      search: ""
+    }
+  },
   methods: {
     clickItem: function(item) {
       this.$store.dispatch({
@@ -29,7 +35,10 @@ export default {
   },
   computed: {
     deviceList() {
-      return this.$store.state.mainStore.deviceList;
+      var s = this.search;
+      return this.$store.state.mainStore.deviceList.filter(function(d) {
+        return d.name.toLowerCase().indexOf(s) > -1;
+      });
     },
     selectedDeviceID() {
       var d = this.$store.state.mainStore.selectedDevice;
@@ -44,11 +53,19 @@ export default {
 </script>
 
 <style scoped>
+
+.filterText {
+  width: 70%;
+  margin-left: 10px;
+}
+
 .menu {
 	float: left;
 	padding-right: 50px;
   width: 250px;
+  max-height: 800px;
   padding: 10px 10px 50px 10px;
+  overflow-y: scroll;
 }
 
 .menuHeader {
@@ -58,7 +75,7 @@ export default {
 }
 
 .list-item {
-  padding: 5px 0px 5px 5px;
+  padding: 3px 0px 5px 5px;
 }
 
 .selectedItem {
